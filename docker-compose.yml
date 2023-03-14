@@ -8,8 +8,8 @@ services:
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
-    posts:
-      - "54325432"
+    ports:
+      - "5432:5432"
     networks:
       - postgres
     restart: unless-stopped
@@ -27,3 +27,11 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:

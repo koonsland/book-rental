@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,7 +16,8 @@ public class Rental implements Serializable {
     @Id
     @SequenceGenerator(
             name = "rental_id_sequence",
-            sequenceName = "rental_id_sequence"
+            sequenceName = "rental_id_sequence",
+            allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -37,4 +39,7 @@ public class Rental implements Serializable {
     private Long lateFee;
 
     // 대출 아이템
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<RentedItem> rentedItems = new HashSet<>();
 }

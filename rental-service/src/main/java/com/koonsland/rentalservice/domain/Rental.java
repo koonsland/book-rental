@@ -1,6 +1,8 @@
 package com.koonsland.rentalservice.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -10,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "rental")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Rental implements Serializable {
     // 렌탈 식별자
@@ -42,4 +45,11 @@ public class Rental implements Serializable {
     @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<RentedItem> rentedItems = new HashSet<>();
+
+    // 반납 아이템
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ReturnedItem> returnedItems = new HashSet<>();
+
+
 }

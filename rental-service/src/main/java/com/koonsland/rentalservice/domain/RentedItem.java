@@ -2,6 +2,8 @@ package com.koonsland.rentalservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -10,6 +12,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "rented_item")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class RentedItem implements Serializable {
     @Id
